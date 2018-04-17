@@ -1,0 +1,16 @@
+.yuefan-player{
+    background-size:50%;
+    -webkit-background-size: 50%;
+    background: #000 50% -100%;
+
+    -webkit-transition: background 1s 0.5s;
+    -moz-transition: background 1s 0.5s;
+    -ms-transition: background 1s 0.5s;
+    -o-transition: background 1s 0.5s;
+    transition:background 1s 0.5s;
+}
+.is-poster{
+    -webkit-background-size: 100%;
+    background-size:100%;
+    background-position: 50% 50%;
+}

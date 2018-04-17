@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ScatterChart</title>
+    <meta charset="UTF-8">
+    <title>ECharts-BasicChart</title>
+    <script src="js/echarts.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/GetData.js"></script>
+    <script src="js/echartsTheme/vintage.js"></script>
+    <script src="js/GetParam.js"></script>
+    <!--样式表-->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <!-- Custom Theme files -->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <!-- Custom Theme files -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Shoplist Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Hind:400,500,300,600,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".scroll").click(function(event){
+                event.preventDefault();
+                $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+            });
+        });
+    </script>
+    <!-- //end-smoth-scrolling -->
+    <script src="js/simpleCart.min.js"> </script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+<body>
+<!--header strat here-->
+<div class="header">
+    <div class="container">
+        <div class="header-main">
+            <div class="top-nav">
+                <div class="content white">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="navbar-brand logo">
+                                <a href="index.html"><img src="images/logo1.png" style="width:60px;height:50px" alt=""></a>
+                            </div>
+                        </div>
+                        <!--导航栏-->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a href="index.html">Home</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Analysis <b class="caret"></b></a>
+                                    <ul class="dropdown-menu multi-column columns-3">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <ul class="multi-column-dropdown">
+                                                    <li><a href="ChooseDev2.html">Basic Line Chart</a></li>
+                                                    <li><a href="index.html">Stacked Chart</a></li>
+                                                    <li><a href="ScatterChart.html">Scatter Chart</a></li>
+                                                    <li><a href="index.html">敬请期待</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Video <b class="caret"></b></a>
+                                    <ul class="dropdown-menu multi-column columns-3">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <ul class="multi-column-dropdown">
+                                                    <li><a href="Live.html">直播</a></li>
+                                                    <li><a href="index.html">历史录像</a></li>
+                                                    <li><a href="index.html">敬请期待</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                            <div class="clearfix"> </div>
+                        </div>
+                        <!--/.navbar-collapse-->
+                    </nav>
+                    <!--/.navbar-->
+                </div>
+            </div>
+            <!--登陆窗口-->
+            <div class="header-right">
+                <div class="search">
+                    <div class="head-signin">
+                        <h5><a href="login.html"><i class="hd-dign"></i>Sign in</a></h5>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<!--header end here-->
+<!-- 为ECharts准备一个具备大小（宽高）的DOM容器-->
+<!--<div id='main'style="width:800px;height:450px;margin:0 auto"></div>-->
+<div id='main'style="width:100%;height:700px;margin:0 auto"></div>
+<!-- 引入ECharts文件 -->
+<script type="text/javascript" src="php/db_GetScatterData.php"></script>
+<script>
+    //基于准备好的DOM，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    myChart.showLoading();
+
+    $.get('php/src.json', function (data) {
+        myChart.hideLoading();
+
+        var itemStyle = {
+            normal: {
+                opacity: 0.8,
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowOffsetY: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        };
+
+        var sizeFunction = function (x) {
+            //var y = Math.sqrt(x / 5e2) + 0.1;
+            //return y * 90;
+            var y= Math.sqrt(x/10);
+            return y*50;
+        };
+        // Schema:
+        var schema = [
+            {name: 'Income', index: 0, text: 'Time', unit: ''},
+            {name: 'LifeExpectancy', index: 1, text: '峰值', unit: '人'},
+            {name: 'Population', index: 2, text: '总人数', unit: '人'},
+            {name: 'Country', index: 3, text: 'id', unit: ''}
+        ];
+
+        option = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    orient: 'vertical',
+                    autoPlay: true,
+                    inverse: true,
+                    playInterval: 2000,
+                    left: null,
+                    right: 0,
+                    top: 20,
+                    bottom: 20,
+                    width: 85,
+                    height: null,
+                    label: {
+                        normal: {
+                            textStyle: {
+                                color: '#999'
+                            }
+                        },
+                        emphasis: {
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    symbol: 'none',
+                    lineStyle: {
+                        color: '#555'
+                    },
+                    checkpointStyle: {
+                        color: '#bbb',
+                        borderColor: '#777',
+                        borderWidth: 2
+                    },
+                    controlStyle: {
+                        showNextBtn: false,
+                        showPrevBtn: false,
+                        normal: {
+                            color: '#666',
+                            borderColor: '#666'
+                        },
+                        emphasis: {
+                            color: '#aaa',
+                            borderColor: '#aaa'
+                        }
+                    },
+                    data: []
+                },
+                backgroundColor: '#404a59',
+                title: [{
+                    text: data.timeline[0],
+                    textAlign: 'center',
+                    left: '65%',
+                    top: '55%',
+                    textStyle: {
+                        fontSize: 100,
+                        color: 'rgba(255, 255, 255, 0.7)'
+                    }
+                }, {
+                    text: '各区域人流量演变',
+                    left: 'center',
+                    top: 10,
+                    textStyle: {
+                        color: '#aaa',
+                        fontWeight: 'normal',
+                        fontSize: 20
+                    }
+                }],
+                tooltip: {
+                    padding: 5,
+                    backgroundColor: '#222',
+                    borderColor: '#777',
+                    borderWidth: 1,
+                    formatter: function (obj) {
+                        var value = obj.value;
+                        return schema[3].text + '：' + value[3] + '<br>'
+                            + schema[1].text + '：' + value[1] + schema[1].unit + '<br>'
+                            + schema[0].text + '：' + value[0] + schema[0].unit + '<br>'
+                            + schema[2].text + '：' + value[2] + schema[2].unit + '<br>';
+                    }
+                },
+                grid: {
+                    top: 100,
+                    containLabel: true,
+                    left: 30,
+                    right: '110'
+                },
+                xAxis : [ {
+                    type : "value",
+                    name: '时刻',
+                    min:000000,
+                    max:240000,
+                    boundaryGap: false,
+                    splitLine: {
+                        show: false
+                    },
+
+                    nameGap: 25,
+                    nameLocation: 'middle',
+                    nameTextStyle: {
+                        fontSize: 18
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ccc'
+                        }
+                    },
+                    axisLabel: {
+                        formatter: '{value} '
+                    }
+                } ],
+                // xAxis: {
+                //     type: 'category',
+                //     name: '人均收入',
+                //     nameGap: 25,
+                //     nameLocation: 'middle',
+                //     nameTextStyle: {
+                //         fontSize: 18
+                //     },
+                //     splitLine: {
+                //         show: false
+                //     },
+                //     axisLine: {
+                //         lineStyle: {
+                //             color: '#ccc'
+                //         }
+                //     },
+                //     axisLabel: {
+                //         formatter: '{value} $'
+                //     }
+                // },
+                yAxis: {
+                    type: 'value',
+                    name: '人数',
+                    max:30,
+                    nameTextStyle: {
+                        color: '#ccc',
+                        fontSize: 18
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#ccc'
+                        }
+                    },
+                    splitLine: {
+                        show: false
+                    },
+                    // axisLabel: {
+                    //     formatter: '{value} '
+                    // }
+                },
+                visualMap: [
+                    {
+                        show: false,
+                        dimension: 3,
+                        categories: data.id,
+                        calculable: true,
+                        precision: 0.1,
+                        textGap: 30,
+                        textStyle: {
+                            color: '#ccc'
+                        },
+                        inRange: {
+                            color: (function () {
+                                var colors = ['#bcd3bb', '#e88f70', '#edc1a5', '#9dc5c8', '#e1e8c8', '#7b7c68', '#e5b5b5', '#f0b489', '#928ea8', '#bda29a'];
+                                return colors.concat(colors);
+                            })()
+                        }
+                    }
+                ],
+                series: [
+                    {
+                        type: 'scatter',
+                        itemStyle: itemStyle,
+                        data: data.series[0],
+                        symbolSize: function(val) {
+                            return sizeFunction(val[2]);
+                        }
+                    }
+                ],
+                animationDurationUpdate: 1000,
+                animationEasingUpdate: 'quinticInOut'
+            },
+            options: []
+        };
+
+        for (var n = 0; n < data.timeline.length; n++) {
+            option.baseOption.timeline.data.push(data.timeline[n]);
+            option.options.push({
+                title: {
+                    show: true,
+                    'text': data.timeline[n] + ''
+                },
+                series: {
+                    name: data.timeline[n],
+                    type: 'scatter',
+                    itemStyle: itemStyle,
+                    data: data.series[n],
+                    symbolSize: function(val) {
+                        return sizeFunction(val[2]);
+                    }
+                }
+            });
+        }
+        myChart.setOption(option,true);
+
+    });
+
+</script>
+<!--footer strat here-->
+<div class="footer">
+    <div class="container">
+        <div class="footer-main">
+            <div class="ftr-grids-block">
+                <div class="col-md-3 footer-grid">
+                    <ul>
+                        <li><a href="ChooseDev2.html">Basic Line Chart</a></li>
+                        <li><a href="index.html">Stacked Line Chart</a></li>
+                        <li><a href="ScatterChart.html">Scatter Chart</a></li>
+                        <li><a href="Live.html">Live</a></li>
+                        <li><a href="index.html">History</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-grid">
+                    <ul>
+                        <li><a href="login.html">Your Account</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 footer-grid">
+                    <ul>
+                        <li><a href="terms.html">Website Terms</a></li>
+                        <li><a href="shortcodes.html">Short Codes</a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="copy-rights">
+                <p>Copyright &copy; Made by Yuefan Yu </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer end here-->
+</body>
+</html>

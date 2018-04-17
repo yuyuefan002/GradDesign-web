@@ -1,0 +1,54 @@
+<!doctype html>
+
+<head>
+
+   <!-- player skin -->
+   <link rel="stylesheet" href="skin/skin.css">
+
+   <!-- site specific styling -->
+   <style>
+   body { font: 12px "Myriad Pro", "Lucida Grande", sans-serif; text-align: center; padding-top: 5%; }
+   .flowplayer { width: 80%; }
+   </style>
+
+   <!-- for video tag based installs flowplayer depends on jQuery 1.7.2+ -->
+   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+   <!-- include flowplayer -->
+   <script src="flowplayer.min.js"></script>
+
+</head>
+
+
+   <!-- the player -->
+   <div id="wowza" style="width:644px;height:276px;margin:0 auto;text-align:center">
+      <!--<img src="/media/img/player/splash_black.jpg"-->
+           <!--height="276" width="548" style="cursor:pointer" />-->
+   </div>
+<?php
+    $f("wowza", "http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf", {
+
+        clip: {
+            url: 'mp4:vod/demo.flowplayer/buffalo_soldiers.mp4',
+            scaling: 'fit',
+            // configure clip to use hddn as our provider, referring to our rtmp plugin
+            provider: 'hddn'
+        },
+
+        // streaming plugins are configured under the plugins node
+        plugins: {
+
+            // here is our rtmp plugin configuration
+            hddn: {
+                url: "flowplayer.rtmp-3.2.13.swf",
+
+                // netConnectionUrl defines where the streams are found
+                netConnectionUrl: 'rtmp://r.demo.flowplayer.netdna-cdn.com/play'
+            }
+        },
+        canvas: {
+            backgroundGradient: 'none'
+        }
+    });
+?>
+</body>
